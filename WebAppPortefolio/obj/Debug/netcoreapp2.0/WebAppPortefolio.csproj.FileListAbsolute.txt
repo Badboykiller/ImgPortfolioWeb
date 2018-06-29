@@ -1,0 +1,22 @@
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.deps.json
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.runtimeconfig.json
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.runtimeconfig.dev.json
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.dll
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.pdb
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.csprojResolveAssemblyReference.cache
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.csproj.CoreCompileInputs.cache
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.AssemblyInfoInputs.cache
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.AssemblyInfo.cs
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.dll
+C:\Users\andre\OneDrive\Documentos\Visual Studio 2017\Projetos\WebAppPortefolio\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.pdb
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.deps.json
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.runtimeconfig.json
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.runtimeconfig.dev.json
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.dll
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\bin\Debug\netcoreapp2.0\WebAppPortefolio.pdb
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.csprojResolveAssemblyReference.cache
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.csproj.CoreCompileInputs.cache
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.AssemblyInfoInputs.cache
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.AssemblyInfo.cs
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.dll
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.pdb

@@ -1,0 +1,117 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\images\**" />
+    <Content Remove="wwwroot\images\**" />
+    <EmbeddedResource Remove="wwwroot\images\**" />
+    <None Remove="wwwroot\images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\dist\404.html" />
+    <None Include="wwwroot\dist\500.html" />
+    <None Include="wwwroot\dist\alerts.html" />
+    <None Include="wwwroot\dist\blank.html" />
+    <None Include="wwwroot\dist\buttons.html" />
+    <None Include="wwwroot\dist\cards.html" />
+    <None Include="wwwroot\dist\chartjs.html" />
+    <None Include="wwwroot\dist\css\styles.css" />
+    <None Include="wwwroot\dist\forms.html" />
+    <None Include="wwwroot\dist\imgs\avatar-1.png" />
+    <None Include="wwwroot\dist\imgs\logo.png" />
+    <None Include="wwwroot\dist\index.html" />
+    <None Include="wwwroot\dist\invoice.html" />
+    <None Include="wwwroot\dist\js\carbon.js" />
+    <None Include="wwwroot\dist\js\demo.js" />
+    <None Include="wwwroot\dist\layouts-fixed-header.html" />
+    <None Include="wwwroot\dist\layouts-fixed-sidebar.html" />
+    <None Include="wwwroot\dist\layouts-hidden-sidebar.html" />
+    <None Include="wwwroot\dist\layouts-normal.html" />
+    <None Include="wwwroot\dist\login.html" />
+    <None Include="wwwroot\dist\modals.html" />
+    <None Include="wwwroot\dist\progress-bars.html" />
+    <None Include="wwwroot\dist\register.html" />
+    <None Include="wwwroot\dist\settings.html" />
+    <None Include="wwwroot\dist\tables.html" />
+    <None Include="wwwroot\dist\tabs.html" />
+    <None Include="wwwroot\dist\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\dist\vendor\chart.js\chart.js" />
+    <None Include="wwwroot\dist\vendor\chart.js\chart.min.js" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fa-brands.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fa-brands.min.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fa-regular.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fa-regular.min.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fa-solid.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fa-solid.min.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fontawesome-all.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fontawesome-all.min.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fontawesome.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\css\fontawesome.min.css" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-brands-400.eot" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-brands-400.ttf" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-brands-400.woff" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-regular-400.eot" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-regular-400.ttf" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-regular-400.woff" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-solid-900.eot" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-solid-900.ttf" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-solid-900.woff" />
+    <None Include="wwwroot\dist\vendor\font-awesome\webfonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\dist\vendor\jquery\jquery.js" />
+    <None Include="wwwroot\dist\vendor\jquery\jquery.min.js" />
+    <None Include="wwwroot\dist\vendor\popper.js\popper.min.js" />
+    <None Include="wwwroot\dist\vendor\simple-line-icons\css\simple-line-icons.css" />
+    <None Include="wwwroot\dist\vendor\simple-line-icons\fonts\Simple-Line-Icons.eot" />
+    <None Include="wwwroot\dist\vendor\simple-line-icons\fonts\Simple-Line-Icons.svg" />
+    <None Include="wwwroot\dist\vendor\simple-line-icons\fonts\Simple-Line-Icons.ttf" />
+    <None Include="wwwroot\dist\vendor\simple-line-icons\fonts\Simple-Line-Icons.woff" />
+    <None Include="wwwroot\dist\vendor\simple-line-icons\fonts\Simple-Line-Icons.woff2" />
+    <None Include="wwwroot\dist\widgets.html" />
+    <None Include="wwwroot\src\imgs\avatar-1.png" />
+    <None Include="wwwroot\src\imgs\logo.png" />
+    <None Include="wwwroot\src\js\carbon.js" />
+    <None Include="wwwroot\src\js\demo.js" />
+    <None Include="wwwroot\src\sass\carbon\carbon.scss" />
+    <None Include="wwwroot\src\sass\carbon\utilities\_borders.scss" />
+    <None Include="wwwroot\src\sass\carbon\utilities\_display.scss" />
+    <None Include="wwwroot\src\sass\carbon\_alert.scss" />
+    <None Include="wwwroot\src\sass\carbon\_avatars.scss" />
+    <None Include="wwwroot\src\sass\carbon\_buttons.scss" />
+    <None Include="wwwroot\src\sass\carbon\_card.scss" />
+    <None Include="wwwroot\src\sass\carbon\_forms.scss" />
+    <None Include="wwwroot\src\sass\carbon\_header.scss" />
+    <None Include="wwwroot\src\sass\carbon\_layout.scss" />
+    <None Include="wwwroot\src\sass\carbon\_mixins.scss" />
+    <None Include="wwwroot\src\sass\carbon\_nav.scss" />
+    <None Include="wwwroot\src\sass\carbon\_navbar.scss" />
+    <None Include="wwwroot\src\sass\carbon\_reboot.scss" />
+    <None Include="wwwroot\src\sass\carbon\_sidebar.scss" />
+    <None Include="wwwroot\src\sass\carbon\_switches.scss" />
+    <None Include="wwwroot\src\sass\carbon\_utilities.scss" />
+    <None Include="wwwroot\src\sass\carbon\_variables.scss" />
+    <None Include="wwwroot\src\sass\styles.scss" />
+    <None Include="wwwroot\src\sass\vendor\vendor.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+</Project>
