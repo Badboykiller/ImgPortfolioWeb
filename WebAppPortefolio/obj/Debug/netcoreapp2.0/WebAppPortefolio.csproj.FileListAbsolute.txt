@@ -19,3 +19,4 @@ C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcore
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.AssemblyInfo.cs
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.dll
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.pdb
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.0\WebAppPortefolio.csprojResolveAssemblyReference.cache
