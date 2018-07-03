@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,9 +11,10 @@ namespace WebAppPortefolio.Models
         public Utilizador()
         {
             IsActive = true;
-            DateCreated = DateTime.Now;
+            DateCreated = DateTime.UtcNow;
         }
 
+        [Key]
         public int ID { get; set; }
         public String Nome { get; set; }
         public String Username { get; set; }
@@ -21,5 +23,6 @@ namespace WebAppPortefolio.Models
 
         public bool IsActive { get; set; }
         public DateTime DateCreated {get; set;}
+        public DateTime DateDeleted { get; set; }
     }
 }
