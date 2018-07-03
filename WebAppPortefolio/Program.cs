@@ -19,12 +19,45 @@ namespace WebAppPortefolio
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var host = CreateWebHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                try
+                {
+                    var context = services.GetRequiredService<PortefolioContext>();
+                    context.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.ToString());
+                }
+
+            }
+
+            host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
+                          .UseKestrel(options =>
+                          {
+                              if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                              {
+                                  options.ListenUnixSocket("/tmp/kestrel-assist.sock");    // bind to socket
+                              }
+                              else
+                              {
+                                  options.Listen(System.Net.IPAddress.Parse("0.0.0.0"), 6565);
+                              }
+
+                          })
+                          .UseStartup<Startup>();
+        }
 
     }
 }
