@@ -10,14 +10,21 @@ namespace WebAppPortefolio.Controllers
 {
     [Authorize]
     public class AccountController : Controller
-    {
-        public IActionResult Index()
+    {       
+        [AllowAnonymous]
+        public IActionResult Login()
         {
             return View();
         }
 
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult NewUser()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult ForgotCredentials()
         {
             return View();
         }

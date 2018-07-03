@@ -1,9 +1,9 @@
-﻿
+﻿@model WebAppPortefolio.Models.Utilizador
+
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "NewUser";
     Layout = null;
 }
-
 
 <!doctype html>
 <html lang="en">
@@ -28,20 +28,21 @@
         <div id="login-box">
             <div class="logo">
                 <img src="~/Imagens/BabeFace.jpg" style="width:110px; height:110px;" class="img img-responsive img-circle center-block" />
-                <h1 class="logo-caption" style="font-size:30px"><span class="tweak">L</span>ogin</h1>
+                <h1 class="logo-caption" style="font-size:30px"><span class="tweak">S</span>ign <span class="tweak">U</span>p</h1>
             </div><!-- /.logo -->
             <div class="controls">
-                <input type="text" name="usernam" placeholder="Username" class="form-control" style="font-size:17px; margin-bottom:10px;" />
-                <input type="text" name="passw" placeholder="Password" class="form-control" style="font-size:17px" />
-                <button type="button" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px">Sign In</button>                    
-                    
-                <span style="display: inline;" class="col-12">
-                    <button type="button" class="btn btn-default btn-custom" id="button1" style="height:35px; width:45%; font-size:17px;"  onclick="location.href='@Url.Action("NewUser", "Account")'">Sign Up</button>
-                    <button type="button" class="btn btn-default btn-custom" id="button2" style="height:35px; width:45%; font-size:17px;">Recover Password</button>
-                </span>   
-                
+                <input type="text" name="nam" placeholder="Name" class="form-control" style="font-size:17px; margin-bottom:5px;" />
+                <input type="text" name="usernam" placeholder="Username" class="form-control" style="font-size:17px; margin-bottom:5px;" />
+                <input type="text" name="emaill" placeholder="Email" class="form-control" style="font-size:17px; margin-bottom:5px;" />
+                <input type="text" name="passw" placeholder="Password" class="form-control" style="font-size:17px; margin-bottom:5px;" />
+                <input type="text" name="passw2" placeholder="Re-type Password" class="form-control" style="font-size:17px; margin-bottom:5px;" />
+
+                <button type="button" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px; margin-bottom:6px;">Sign Up</button>
+
+                <button type="button" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px" onclick="location.href='@Url.Action("Login", "Account")'">Sign In</button>
+
             </div><!-- /.controls -->
-        </div><!-- /#login-box -->        
+        </div><!-- /#login-box -->
 
     </div><!-- /.container -->
 
@@ -58,6 +59,5 @@
 
 </body>
 </html>
-
 
 
