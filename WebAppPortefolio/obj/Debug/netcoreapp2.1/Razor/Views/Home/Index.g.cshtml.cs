@@ -53,7 +53,7 @@ namespace AspNetCore
             WriteLiteral("\r\n<!doctype html>\r\n<html lang=\"en\">\r\n\r\n");
             EndContext();
             BeginContext(133, 5271, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3fe131f216f34e5b9fdc80aa78c6e9e8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1bca86ae7d05454b83587d2eb9618682", async() => {
                 BeginContext(160, 5237, true);
                 WriteLiteral(@"        
                 <div class=""container-fluid"">

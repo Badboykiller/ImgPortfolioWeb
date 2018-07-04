@@ -31,15 +31,18 @@
                 <h1 class="logo-caption" style="font-size:30px"><span class="tweak">S</span>ign <span class="tweak">U</span>p</h1>
             </div><!-- /.logo -->
             <div class="controls">
-                <input type="text" name="nam" placeholder="Name" class="form-control" style="font-size:17px; margin-bottom:5px;" />
-                <input type="text" name="usernam" placeholder="Username" class="form-control" style="font-size:17px; margin-bottom:5px;" />
-                <input type="text" name="emaill" placeholder="Email" class="form-control" style="font-size:17px; margin-bottom:5px;" />
-                <input type="text" name="passw" placeholder="Password" class="form-control" style="font-size:17px; margin-bottom:5px;" />
-                <input type="text" name="passw2" placeholder="Re-type Password" class="form-control" style="font-size:17px; margin-bottom:5px;" />
+                <form action="/Account/NewUser" method="post" id="formNewUser">
+                    <input type="text" name="Nome" id="Nome" placeholder="Name" class="form-control" style="font-size:17px; margin-bottom:5px;" required/>
+                    <input type="text" name="Username" id="Username" placeholder="Username" class="form-control" style="font-size:17px; margin-bottom:5px;" required/>
+                    <input type="email" name="Email" id="Email" placeholder="Email" class="form-control" style="font-size:17px; margin-bottom:5px;" required/>
+                    <input type="password" name="PasswordH" id="PasswordH" placeholder="Password" class="form-control" style="font-size:17px; margin-bottom:5px;" onkeyup="checkPass(); return false;" required/>
+                    <input type="password" name="passw2" id="passw2" placeholder="Re-type Password" class="form-control" style="font-size:17px; margin-bottom:5px;" onkeyup="checkPass(); return false;" required/>
 
-                <button type="button" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px; margin-bottom:6px;">Sign Up</button>
+                    <button type="button" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px; margin-bottom:6px;" onclick="VerificarPP()">Sign Up</button>
 
-                <button type="button" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px" onclick="location.href='@Url.Action("Login", "Account")'">Sign In</button>
+                    <button type="button" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px" onclick="location.href='@Url.Action("Login", "Account")'">Sign In</button>
+                </form>
+
 
             </div><!-- /.controls -->
         </div><!-- /#login-box -->
@@ -56,6 +59,83 @@
     <script src="~/dist/vendor/chart.js/chart.min.js"></script>
     <script src="~/src/js/carbon.js"></script>
     <script src="~/src/js/demo.js"></script>
+
+    <script>
+        //Verificar email
+        function ValidateEmail(inputText) {
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,6})+$/;
+
+            if (inputText.value.match(mailformat)) {
+                return true;
+            }
+            else {
+                alert("You have entered an invalid email address!");
+                return false;
+            }
+        }
+
+        //Validar Segurança minima na pass
+        function ValidatePassw(inputPass)
+        {
+            if (inputPass.value.length > 7) {
+                return true;
+            }
+            else
+            { 
+                alert("Password need at least 8 characters");
+                return false;
+            }
+        }
+
+        //Verifica se as passs são iguais
+        function checkPass() {
+            //Store the password field objects into variables ...
+            var pass1 = document.getElementById('PasswordH');
+            var pass2 = document.getElementById('passw2');
+            //Store the Confimation Message Object ...
+            var message = document.getElementById('confirmMessage');
+            //Set the colors we will be using ...
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+            var nColor = "#555";
+            //Compare the values in the password field
+            //and the confirmation field
+            if (pass1.value == pass2.value) {
+                //The passwords match.
+                //Set the color to the good color and inform
+                //the user that they have entered the correct password
+                pass2.style.backgroundColor = goodColor;
+                message.style.color = goodColor;
+                message.innerHTML = "Passwords Match!"
+            } else if (pass2.value.length > 0) {
+                //The passwords do not match.
+                //Set the color to the bad color and
+                //notify the user.
+                pass2.style.backgroundColor = badColor;
+                message.style.color = badColor;
+                message.innerHTML = "Passwords Do Not Match!"
+            }
+            else {
+                pass2.style.backgroundColor = nColor;
+            }
+        }
+
+        //Só deixa submeter o form se as passs forem iguais
+        function VerificarPP() {
+            var _nome = document.getElementById('Nome');
+            var _usern = document.getElementById('Username');
+            var _email = document.getElementById('Email');
+            var pass1 = document.getElementById('PasswordH');
+            var pass2 = document.getElementById('passw2');            
+
+            if (ValidateEmail(_email) && pass1.value == pass2.value && pass1.value.length > 0 && ValidatePassw(pass1) 
+                && _nome.value.length > 0 && _usern.value.length > 0 && _email.value.length > 0) {
+                document.getElementById("formNewUser").submit();
+            }
+        }
+    </script>
+
+    
 
 </body>
 </html>
