@@ -64,10 +64,11 @@ namespace WebAppPortefolio.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Logout()
         {
             //Limpar sessao
-            HttpContext.Session.Clear();
+            _accessor.HttpContext.Session.Clear();
 
             return RedirectToAction("Login");
         }

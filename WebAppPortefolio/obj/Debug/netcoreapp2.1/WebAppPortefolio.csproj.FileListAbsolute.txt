@@ -27,3 +27,4 @@ C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcore
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\Razor\Views\Account\NewUser.g.cshtml.cs
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\Razor\Views\Account\ForgotCredentials.g.cshtml.cs
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Sidebar\Default.g.cshtml.cs
+C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Topbar\Default.g.cshtml.cs

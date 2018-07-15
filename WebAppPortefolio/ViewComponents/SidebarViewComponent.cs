@@ -9,13 +9,6 @@ namespace WebAppPortefolio.ViewComponents
 {
     public class SidebarViewComponent : ViewComponent
     {
-        private readonly PortefolioContext db;
-
-        public SidebarViewComponent(PortefolioContext context)
-        {
-            db = context;
-        }
-
         public IViewComponentResult Invoke(
         int maxPriority, bool isDone)
         {

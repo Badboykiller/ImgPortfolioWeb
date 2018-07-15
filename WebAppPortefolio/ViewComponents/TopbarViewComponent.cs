@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace WebAppPortefolio.ViewComponents
 {
     public class TopbarViewComponent : ViewComponent
     {
-        private readonly PortefolioContext db;
+        private IHttpContextAccessor _accessor;
 
-        public TopbarViewComponent(PortefolioContext context)
+        public TopbarViewComponent(IHttpContextAccessor accessor)
         {
-            db = context;
+            _accessor = accessor;
         }
 
         public IViewComponentResult Invoke(
