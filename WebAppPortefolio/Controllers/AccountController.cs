@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAppPortefolio.Data;
 using WebAppPortefolio.Models;
@@ -19,6 +20,39 @@ namespace WebAppPortefolio.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Login(IFormCollection col)
+        {
+            var _context = new PortefolioContext();
+
+            string username = col["usernam"];
+            string pass = col["passw"];
+
+            //Buscar user
+            Utilizador _u = _context.Utilizadores.Where(ux => ux.Username == username && ux.IsActive).FirstOrDefault();
+
+            if (_u != null)
+            {
+                //Verificar pass hash
+                if (_u.PasswordH == Funcionalidades.CreateHash(pass))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    //Senao coincidirem, volta para a view Login
+                    return View();
+                }
+            }
+            else
+            {
+                //Senao existir, volta para a view Login
+                return View();
+            }
+        }
+
 
         [AllowAnonymous]
         public IActionResult NewUser()
