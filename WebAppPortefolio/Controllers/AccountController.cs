@@ -109,5 +109,13 @@ namespace WebAppPortefolio.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
     }
 }

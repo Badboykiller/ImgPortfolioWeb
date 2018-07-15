@@ -4,7 +4,8 @@
         <i class="fa fa-bars"></i>
     </a>
     <a class="navbar-brand" href="#">
-        <img src="~/dist/imgs/logo.png" alt="logo">
+        <img src="~/Imagens/portfolio-icon.png" width="45" height="45" alt="logo" />
+        <span class="small ml-1 d-md-down-none">Tike</span>
     </a>
     <a href="#" class="btn btn-link sidebar-toggle d-md-down-none">
         <i class="fa fa-bars"></i>
@@ -36,16 +37,13 @@
 
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="~/dist/imgs/avatar-1.png" class="avatar avatar-sm" alt="logo">
-                <span class="small ml-1 d-md-down-none">John Smith</span>
+                <span class="small ml-1 d-md-down-none">@ViewBag.NomeDele</span>
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header">Account</div>
-                <a href="#" class="dropdown-item">
+                <a href="@Url.Action("Profile", "Account")" class="dropdown-item">
                     <i class="fa fa-user"></i> Profile
-                </a>
-                <a href="#" class="dropdown-item">
-                    <i class="fa fa-envelope"></i> Messages
                 </a>
                 <div class="dropdown-header">Settings</div>
                 <a href="#" class="dropdown-item">
@@ -54,7 +52,7 @@
                 <a href="#" class="dropdown-item">
                     <i class="fa fa-wrench"></i> Settings
                 </a>
-                <a onclick="location.href='@Url.Action("Logout", "Account")'" class="dropdown-item">
+                <a href="@Url.Action("Logout", "Account")" class="dropdown-item">
                     <i class="fa fa-lock"></i> Logout
                 </a>
             </div>
