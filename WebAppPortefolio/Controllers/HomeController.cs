@@ -5,14 +5,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace WebAppPortefolio.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private IHttpContextAccessor _accessor;
+
+        public HomeController(IHttpContextAccessor accessor)
         {
-            return View();
+            _accessor = accessor;
+        }
+
+        public IActionResult Index()
+        {            
+            if (_accessor.HttpContext.Session.GetString("UserID") != null)
+                return View();
+            else
+                return RedirectToAction("Login", "Account");
         }       
     }
 }

@@ -9,6 +9,7 @@ namespace WebAppPortefolio.Utils
 {
     public class Funcionalidades
     {
+        //Gerar hash para segurança básica nas contas
         public static string CreateHash(string unHashed)
         {
             var x = new System.Security.Cryptography.MD5CryptoServiceProvider();

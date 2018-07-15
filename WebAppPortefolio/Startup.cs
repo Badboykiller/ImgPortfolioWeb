@@ -12,6 +12,10 @@ using Microsoft.Extensions.Logging;
 using WebAppPortefolio.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using WebAppPortefolio.Controllers;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebAppPortefolio
 {
@@ -30,13 +34,21 @@ namespace WebAppPortefolio
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDistributedMemoryCache();
+            services.AddSession();
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddTransient<AccountController, AccountController>();
+            services.AddTransient<HomeController, HomeController>();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,11 +73,13 @@ namespace WebAppPortefolio
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSession();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=Login}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
         }

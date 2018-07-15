@@ -15,6 +15,13 @@ namespace WebAppPortefolio.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private IHttpContextAccessor _accessor;
+
+        public AccountController(IHttpContextAccessor accessor)
+        {
+            _accessor = accessor;
+        }
+
         [AllowAnonymous]
         public IActionResult Login()
         {
@@ -38,6 +45,9 @@ namespace WebAppPortefolio.Controllers
                 //Verificar pass hash
                 if (_u.PasswordH == Funcionalidades.CreateHash(pass))
                 {
+                    //Variavel de sessao
+                    _accessor.HttpContext.Session.SetString("UserID", _u.ID.ToString());
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -53,6 +63,14 @@ namespace WebAppPortefolio.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            //Limpar sessao
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Login");
+        }
 
         [AllowAnonymous]
         public IActionResult NewUser()
