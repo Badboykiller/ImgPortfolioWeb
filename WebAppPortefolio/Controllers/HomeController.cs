@@ -19,11 +19,8 @@ namespace WebAppPortefolio.Controllers
         }
 
         public IActionResult Index()
-        {            
-            if (_accessor.HttpContext.Session.GetString("UserID") != null)
-                return View();
-            else
-                return RedirectToAction("Login", "Account");
+        {
+            return View();
         }       
     }
 }

@@ -10,12 +10,21 @@ namespace WebAppPortefolio.Utils
     public class Funcionalidades
     {
         //Gerar hash para segurança básica nas contas
-        public static string CreateHash(string unHashed)
+        public static string GetUInt64Hash(HashAlgorithm hasher, string texto)
         {
-            var x = new System.Security.Cryptography.MD5CryptoServiceProvider();
-            var data = Encoding.ASCII.GetBytes(unHashed);
-            data = x.ComputeHash(data);
-            return Encoding.ASCII.GetString(data);
+            if (String.IsNullOrEmpty(texto))
+            {
+                return null;
+            }
+
+            using (hasher)
+            {
+                var bytes = hasher.ComputeHash(Encoding.Default.GetBytes(texto));
+                return Enumerable.Range(0, bytes.Length / 8) //8 bytes in an 64 bit interger
+                    .Select(i => BitConverter.ToUInt64(bytes, i * 8))
+                    .Aggregate((x, y) => x ^ y).ToString();
+            }
+
         }
     }
 }

@@ -23,7 +23,6 @@ C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcore
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\WebAppPortefolio.dll
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\WebAppPortefolio.pdb
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\WebAppPortefolio.csproj.CopyComplete
-C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\WebAppPortefolio.csprojAssemblyReference.cache
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\Razor\Views\Account\NewUser.g.cshtml.cs
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\Razor\Views\Account\ForgotCredentials.g.cshtml.cs
 C:\Users\andre\Documents\WebAppPortefolioResp\WebAppPortefolio\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Components\Sidebar\Default.g.cshtml.cs

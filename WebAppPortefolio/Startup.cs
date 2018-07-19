@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using WebAppPortefolio.Controllers;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using WebAppPortefolio.Models;
 
 namespace WebAppPortefolio
 {
@@ -38,17 +40,24 @@ namespace WebAppPortefolio
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDbContext<PortefolioContext>(options =>
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<Utilizador, IdentityRole>()
+                  .AddEntityFrameworkStores<PortefolioContext>()
+                  .AddDefaultTokenProviders();
+
             services.AddDistributedMemoryCache();
             services.AddSession();
 
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);          
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             services.AddTransient<AccountController, AccountController>();
-            services.AddTransient<HomeController, HomeController>();           
+            services.AddTransient<HomeController, HomeController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,15 +80,12 @@ namespace WebAppPortefolio
             app.UseAuthentication();
 
             app.UseStaticFiles();
-            app.UseCookiePolicy();
-
-            app.UseSession();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{id?}");
             });
 
         }

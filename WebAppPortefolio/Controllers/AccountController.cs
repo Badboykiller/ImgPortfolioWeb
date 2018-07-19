@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WebAppPortefolio.Data;
 using WebAppPortefolio.Models;
 using WebAppPortefolio.Utils;
@@ -15,83 +20,110 @@ namespace WebAppPortefolio.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        //Autenticação
+        private readonly UserManager<Utilizador> _userManager;
+        private readonly SignInManager<Utilizador> _signInManager;
+        private readonly ILogger _logger;
+
         private IHttpContextAccessor _accessor;
 
-        public AccountController(IHttpContextAccessor accessor)
+        public AccountController(IHttpContextAccessor accessor, UserManager<Utilizador> userManager,
+                    SignInManager<Utilizador> signInManager, ILogger<AccountController> logger)
         {
             _accessor = accessor;
+
+            //Autenticação
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _logger = logger;
         }
 
+        [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public async Task<IActionResult> Login(string returnUrl = null)
         {
+            //Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(IFormCollection col)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(IFormCollection col)
         {
-            var _context = new PortefolioContext();
+            DbContextOptions<PortefolioContext> _options = new DbContextOptions<PortefolioContext>();
+            var _context = new PortefolioContext(_options);
 
             string username = col["usernam"];
             string pass = col["passw"];
 
             //Buscar user
-            Utilizador _u = _context.Utilizadores.Where(ux => ux.Username == username && ux.IsActive).FirstOrDefault();
+            Utilizador _u = _context.Utilizadores.Where(ux => ux.UserName == username && ux.IsActive).FirstOrDefault();
 
-            if (_u != null)
-            {
-                //Verificar pass hash
-                if (_u.PasswordH == Funcionalidades.CreateHash(pass))
+            //Verificar user e pass hash
+            if (_u != null && _u.PasswordHash == Funcionalidades.GetUInt64Hash(MD5.Create(), pass))
+            {                
+                var result = await _signInManager.PasswordSignInAsync(_u.UserName, _u.PasswordHash, false, false);
+
+                if (result.Succeeded)
                 {
-                    //Variavel de sessao
-                    _accessor.HttpContext.Session.SetString("UserID", _u.ID.ToString());
-
+                    _logger.LogInformation("User logged in...");
                     return RedirectToAction("Index", "Home");
                 }
-                else
+                else 
                 {
-                    //Senao coincidirem, volta para a view Login
-                    return View();
+                    _logger.LogWarning("Login error...");
+                    return View(col);
                 }
+                
             }
-            else
-            {
-                //Senao existir, volta para a view Login
-                return View();
-            }
+
+            //Senao existir, volta para a view Login
+            return View();
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Logout()
+        [HttpPost]
+        public async Task<IActionResult> Logout()
         {
-            //Limpar sessao
-            _accessor.HttpContext.Session.Clear();
-
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
             return RedirectToAction("Login");
         }
 
         [AllowAnonymous]
-        public IActionResult NewUser()
+        public IActionResult NewUser(string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult NewUser(Utilizador _model)
         {
-            var _context = new PortefolioContext();
+            DbContextOptions<PortefolioContext> _options = new DbContextOptions<PortefolioContext>();
+            var _context = new PortefolioContext(_options);
 
             if (ModelState.IsValid)
             {
+                //Random number
+                Random random = new Random();
+                int randomNumber = random.Next(101, 999999);
+
                 //Novo id
-                _model.ID = _context.Utilizadores.Count() + 1;
+                _model.Id = "#User#" + randomNumber.ToString() + "#" + (_context.Utilizadores.Count() + 1).ToString();
 
                 //Pass segura com Hash MD5
-                _model.PasswordH = Funcionalidades.CreateHash(_model.PasswordH);
+                _model.PasswordHash = Funcionalidades.GetUInt64Hash(MD5.Create(), _model.PasswordHash);
+
+                //Não consegui gerar a hash
+                if (_model.PasswordHash == null)
+                {
+                    _logger.LogInformation("Hash generation error");
+                    return View(_model);
+                }
 
                 _context.Utilizadores.Add(_model);
                 _context.SaveChanges();
@@ -99,7 +131,7 @@ namespace WebAppPortefolio.Controllers
                 return RedirectToAction("Login", "Account");
             } 
             else
-            {
+            {                
                 return View(_model);
             }
         }
@@ -116,6 +148,28 @@ namespace WebAppPortefolio.Controllers
         {
             return View();
         }
+
+        #region Helpers
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction(nameof(AccountController.Login), "Account");
+            }
+        }
+        #endregion
 
     }
 }

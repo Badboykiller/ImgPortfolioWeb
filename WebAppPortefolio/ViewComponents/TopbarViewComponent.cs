@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,15 @@ namespace WebAppPortefolio.ViewComponents
         public IViewComponentResult Invoke(
         int maxPriority, bool isDone)
         {
-            var db = new PortefolioContext();
+            DbContextOptions<PortefolioContext> _options = new DbContextOptions<PortefolioContext>();
+            var db = new PortefolioContext(_options);
 
-            string Uid = _accessor.HttpContext.Session.GetString("UserID");
+            //string Uid = _accessor.HttpContext.Session.GetString("UserID");
 
-            Utilizador _u = db.Utilizadores.Where(ut => ut.ID.ToString() == Uid).FirstOrDefault();
+            //Utilizador _u = db.Utilizadores.Where(ut => ut.ID.ToString() == Uid).FirstOrDefault();
 
             //Nome do utilizador
-            ViewBag.NomeDele = _u.Nome;
+            ViewBag.NomeDele = "André Silva";
 
             return View();
         }               

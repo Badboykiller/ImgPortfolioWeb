@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,12 @@ namespace WebAppPortefolio.Data
 {
     public class PortefolioContext : DbContext
     {
-        /*public PortefolioContext(DbContextOptions<PortefolioContext> options)
+
+        public PortefolioContext(DbContextOptions<PortefolioContext> options)
             : base(options)
         {
-        }*/
-
+        }
+  
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

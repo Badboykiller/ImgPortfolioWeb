@@ -1,4 +1,9 @@
 ﻿
+@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+
 @{
     ViewData["Title"] = "Login";
     Layout = null;
@@ -31,10 +36,10 @@
                 <h1 class="logo-caption" style="font-size:30px"><span class="tweak">L</span>ogin</h1>
             </div><!-- /.logo -->
             <div class="controls">
-                <form action="/Account/Login" method="post">
+                <form asp-route-returnurl="~/Account/Login" method="post">
                     <input type="text" id="usernam" name="usernam" placeholder="Username" class="form-control" style="font-size:17px; margin-bottom:10px;" />
                     <input type="password" id="passw" name="passw" placeholder="Password" class="form-control" style="font-size:17px" />
-                    <button type="submit" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px">Sign In</button>
+                    <button value="submit" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px">Sign In</button>
 
                     <span style="display: inline;" class="col-12">
                         <button type="button" class="btn btn-default btn-custom" id="button1" style="height:35px; width:45%; font-size:17px;" onclick="location.href='@Url.Action("NewUser", "Account")'">Sign Up</button>
@@ -43,11 +48,15 @@
                 </form>
 
             </div><!-- /.controls -->
-        </div><!-- /#login-box -->        
+        </div><!-- /#login-box -->
 
     </div><!-- /.container -->
 
     <div id="particles-js"></div>
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
 
     <script src="~/js/LoginPageScript.js"></script>
 
