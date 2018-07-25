@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppPortefolio.Data;
 
 namespace WebAppPortefolio.Migrations
 {
     [DbContext(typeof(PortefolioContext))]
-    partial class PortefolioContextModelSnapshot : ModelSnapshot
+    [Migration("20180725112634_NewUsersTable")]
+    partial class NewUsersTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

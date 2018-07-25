@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WebAppPortefolio.Models
 {
-    public class Utilizador : IdentityUser
+    public class Utilizador
     {
         public Utilizador()
         {
@@ -15,7 +15,14 @@ namespace WebAppPortefolio.Models
             DateCreated = DateTime.UtcNow;
         }
 
+        [Key]
+        public String ID { get; set; }
+
         public String Nome { get; set; }
+        public String Username { get; set; }
+        public String Email { get; set; }
+        public String PasswordH { get; set; }
+
         public bool IsActive { get; set; }
         public DateTime DateCreated {get; set;}
         public DateTime DateDeleted { get; set; }

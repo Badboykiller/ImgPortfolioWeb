@@ -18,6 +18,7 @@ using WebAppPortefolio.Controllers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using WebAppPortefolio.Models;
+using WebAppPortefolio.Utils;
 
 namespace WebAppPortefolio
 {
@@ -42,12 +43,7 @@ namespace WebAppPortefolio
 
             services.AddDbContext<PortefolioContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddIdentity<Utilizador, IdentityRole>()
-                  .AddEntityFrameworkStores<PortefolioContext>()
-                  .AddDefaultTokenProviders();
-
-            services.AddDistributedMemoryCache();
+           
             services.AddSession();
 
             services.AddMvc()
@@ -58,6 +54,18 @@ namespace WebAppPortefolio
 
             services.AddTransient<AccountController, AccountController>();
             services.AddTransient<HomeController, HomeController>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(options => { options.LoginPath = "/Login"; });
+            services.AddMvc().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AuthorizeFolder("/");
+                options.Conventions.AllowAnonymousToPage("/Login");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,9 +82,10 @@ namespace WebAppPortefolio
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
-            }
+            }            
 
             app.UseStaticFiles();
+
             app.UseAuthentication();
 
             app.UseStaticFiles();

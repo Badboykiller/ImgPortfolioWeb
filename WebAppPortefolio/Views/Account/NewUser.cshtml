@@ -33,9 +33,9 @@
             <div class="controls">
                 <form action="/Account/NewUser" method="post" id="formNewUser">
                     <input type="text" name="Nome" id="Nome" placeholder="Name" class="form-control" style="font-size:17px; margin-bottom:5px;" required/>
-                    <input type="text" name="UserName" id="UserName" placeholder="Username" class="form-control" style="font-size:17px; margin-bottom:5px;" required/>
+                    <input type="text" name="Username" id="Username" placeholder="Username" class="form-control" style="font-size:17px; margin-bottom:5px;" required/>
                     <input type="email" name="Email" id="Email" placeholder="Email" class="form-control" style="font-size:17px; margin-bottom:5px;" required/>
-                    <input type="password" name="PasswordHash" id="PasswordHash" placeholder="Password" class="form-control" style="font-size:17px; margin-bottom:5px;" onkeyup="checkPass(); return false;" required/>
+                    <input type="password" name="PasswordH" id="PasswordH" placeholder="Password" class="form-control" style="font-size:17px; margin-bottom:5px;" onkeyup="checkPass(); return false;" required/>
                     <input type="password" name="passw2" id="passw2" placeholder="Re-type Password" class="form-control" style="font-size:17px; margin-bottom:5px;" onkeyup="checkPass(); return false;" required/>
 
                     <button type="button" class="btn btn-default btn-block btn-custom" style="height:35px; font-size:17px; margin-bottom:6px;" onclick="VerificarPP()">Sign Up</button>
@@ -90,7 +90,7 @@
         //Verifica se as passs são iguais
         function checkPass() {
             //Store the password field objects into variables ...
-            var pass1 = document.getElementById('PasswordHash');
+            var pass1 = document.getElementById('PasswordH');
             var pass2 = document.getElementById('passw2');
             //Store the Confimation Message Object ...
             var message = document.getElementById('confirmMessage');
@@ -119,9 +119,9 @@
         //Só deixa submeter o form se as passs forem iguais
         function VerificarPP() {
             var _nome = document.getElementById('Nome');
-            var _usern = document.getElementById('UserName');
+            var _usern = document.getElementById('Username');
             var _email = document.getElementById('Email');
-            var pass1 = document.getElementById('PasswordHash');
+            var pass1 = document.getElementById('PasswordH');
             var pass2 = document.getElementById('passw2');            
 
             if (ValidateEmail(_email) && pass1.value == pass2.value && pass1.value.length > 0 && ValidatePassw(pass1) 

@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 using WebAppPortefolio.Data;
 using WebAppPortefolio.Models;
 using WebAppPortefolio.Utils;
@@ -20,38 +21,23 @@ namespace WebAppPortefolio.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        //Autenticação
-        private readonly UserManager<Utilizador> _userManager;
-        private readonly SignInManager<Utilizador> _signInManager;
-        private readonly ILogger _logger;
-
         private IHttpContextAccessor _accessor;
 
-        public AccountController(IHttpContextAccessor accessor, UserManager<Utilizador> userManager,
-                    SignInManager<Utilizador> signInManager, ILogger<AccountController> logger)
+        public AccountController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
-
-            //Autenticação
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
+        public IActionResult Login()
         {
-            //Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(IFormCollection col)
+        public IActionResult Login(IFormCollection col)
         {
             DbContextOptions<PortefolioContext> _options = new DbContextOptions<PortefolioContext>();
             var _context = new PortefolioContext(_options);
@@ -60,36 +46,58 @@ namespace WebAppPortefolio.Controllers
             string pass = col["passw"];
 
             //Buscar user
-            Utilizador _u = _context.Utilizadores.Where(ux => ux.UserName == username && ux.IsActive).FirstOrDefault();
+            Utilizador _u = _context.Utilizadores.Where(ux => ux.Username == username && ux.IsActive).FirstOrDefault();
 
             //Verificar user e pass hash
-            if (_u != null && _u.PasswordHash == Funcionalidades.GetUInt64Hash(MD5.Create(), pass))
-            {                
-                var result = await _signInManager.PasswordSignInAsync(_u.UserName, _u.PasswordHash, false, false);
+            if (_u != null && Funcionalidades.GetUInt64Hash(MD5.Create(), pass) == _u.PasswordH)
+            {
+                try
+                {
+                    var claims = new List<Claim>
+                                {
+                                    new Claim(ClaimTypes.Name, _u.Email),
+                                    new Claim(ClaimTypes.GivenName, _u.Nome)
+                                };
 
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in...");
-                    return RedirectToAction("Index", "Home");
+                    var claimsIdentity = new ClaimsIdentity(
+                        claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity)
+                        ).GetAwaiter().GetResult();
+
+                    //return RedirectToAction("Index", "Home");
                 }
-                else 
+                catch (Exception ex)
                 {
-                    _logger.LogWarning("Login error...");
+                    Console.WriteLine("Exception information: {0}", ex);
                     return View(col);
                 }
-                
+
+            }
+            else
+            {
+                return View(col);
             }
 
-            //Senao existir, volta para a view Login
-            return View();
+            //Se correr bem
+            return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Logout()
+        [HttpGet]
+        public IActionResult Logout()
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            return RedirectToAction("Login");
+            if (User.Identity.IsAuthenticated)
+            {
+                HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).GetAwaiter().GetResult();
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View();
+            }
+
         }
 
         [AllowAnonymous]
@@ -108,30 +116,25 @@ namespace WebAppPortefolio.Controllers
 
             if (ModelState.IsValid)
             {
-                //Random number
-                Random random = new Random();
-                int randomNumber = random.Next(101, 999999);
 
                 //Novo id
-                _model.Id = "#User#" + randomNumber.ToString() + "#" + (_context.Utilizadores.Count() + 1).ToString();
+                _model.ID = (_context.Utilizadores.Count() + 1).ToString() + "#User";
 
                 //Pass segura com Hash MD5
-                _model.PasswordHash = Funcionalidades.GetUInt64Hash(MD5.Create(), _model.PasswordHash);
+                _model.PasswordH = Funcionalidades.GetUInt64Hash(MD5.Create(), _model.PasswordH);
 
-                //Não consegui gerar a hash
-                if (_model.PasswordHash == null)
-                {
-                    _logger.LogInformation("Hash generation error");
+                //Senão conseguir gerar a hash
+                if (_model.PasswordH == null)
                     return View(_model);
-                }
 
                 _context.Utilizadores.Add(_model);
+
                 _context.SaveChanges();
 
                 return RedirectToAction("Login", "Account");
-            } 
+            }
             else
-            {                
+            {
                 return View(_model);
             }
         }
