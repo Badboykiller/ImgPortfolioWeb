@@ -1,4 +1,5 @@
-﻿
+﻿@model WebAppPortefolio.Models.Utilizador
+
 @{
     ViewData["Title"] = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,70 +9,137 @@
     <div class="card-header bg-light">
         Account Settings
     </div>
-    <div class="card-body">
-        <div class="row mb-5">
-            <div class="col-md-4 mb-4">
-                <div>Profile Information</div>
-                <div class="text-muted small">These information are visible to the public.</div>
-            </div>
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-control-label">Name</label>
-                            <input class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-control-label">Username</label>
-                            <input class="form-control">
-                        </div>
-                    </div>
+    <form action="/Account/Profile" method="post" id="formChangeProfile">
+        <div class="card-body">
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div>Profile Information</div>
+                    <div class="text-muted small">These information are visible to the public.</div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-control-label">Email Address</label>
-                            <input class="form-control">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Name</label>
+                                <input class="form-control" name="Nome" id="Nome" value="@Model.Nome">
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-control-label">Website Link</label>
-                            <input class="form-control">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Username</label>
+                                <input class="form-control" name="Username" id="Username" value="@Model.Username">
+                            </div>
                         </div>
-                    </div>
+                    </div>                    
+
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="row mt-5">
-            <div class="col-md-4 mb-4">
-                <div>Access Credentials</div>
-                <div class="text-muted small">Leave credentials fields empty if you don't wish to change the password.</div>
-            </div>
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-control-label">Password</label>
-                            <input type="password" class="form-control">
+            <hr>
+            <div class="row mt-5">
+                <div class="col-md-4 mb-4">
+                    <div>Access Credentials</div>
+                    <div class="text-muted small">Leave credentials fields empty if you don't wish to change the password.</div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="form-control-label">Email Address</label>
+                                <input class="form-control" name="Email" id="Email" value="@Model.Email">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-control-label">Password Confirmation</label>
-                            <input type="password" class="form-control">
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Password</label>
+                                <input type="password" class="form-control" name="PasswordH" id="PasswordH">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Password Confirmation</label>
+                                <input type="password" class="form-control" name="passw2" id="passw2">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card-footer bg-light text-right">
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-    </div>
+        <div class="card-footer bg-light text-right">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </form>
 </div>
+
+<script>
+        //Verificar email
+        function ValidateEmail(inputText) {
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,6})+$/;
+
+            if (inputText.value.match(mailformat)) {
+                return true;
+            }
+            else {
+                alert("You have entered an invalid email address!");
+                return false;
+            }
+        }
+
+        //Validar Segurança minima na pass
+        function ValidatePassw(inputPass)
+        {
+            if (inputPass.value.length > 7) {
+                return true;
+            }
+            else
+            {
+                alert("Password need at least 8 characters");
+                return false;
+            }
+        }
+
+        //Verifica se as passs são iguais
+        function checkPass() {
+            //Store the password field objects into variables ...
+            var pass1 = document.getElementById('PasswordH');
+            var pass2 = document.getElementById('passw2');
+            //Store the Confimation Message Object ...
+            var message = document.getElementById('confirmMessage');
+            //Set the colors we will be using ...
+            var goodColor = "#66cc66";
+            var badColor = "#ff6666";
+            var nColor = "#555";
+            //Compare the values in the password field
+            //and the confirmation field
+            if (pass1.value == pass2.value) {
+                //The passwords match.
+                //Set the color to the good color and inform
+                //the user that they have entered the correct password
+                pass2.style.backgroundColor = goodColor;
+            } else if (pass2.value.length > 0) {
+                //The passwords do not match.
+                //Set the color to the bad color and
+                //notify the user.
+                pass2.style.backgroundColor = badColor;
+            }
+            else {
+                pass2.style.backgroundColor = nColor;
+            }
+        }
+
+        //Só deixa submeter o form se as passs forem iguais
+        function VerificarPP() {
+            var _nome = document.getElementById('Nome');
+            var _usern = document.getElementById('Username');
+            var _email = document.getElementById('Email');
+            var pass1 = document.getElementById('PasswordH');
+            var pass2 = document.getElementById('passw2');
+
+            if (ValidateEmail(_email) && pass1.value == pass2.value && pass1.value.length > 0 && ValidatePassw(pass1)
+                && _nome.value.length > 0 && _usern.value.length > 0 && _email.value.length > 0) {
+                document.getElementById("formNewUser").submit();
+            }
+        }
+</script>

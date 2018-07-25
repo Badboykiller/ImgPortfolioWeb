@@ -32,7 +32,16 @@ namespace WebAppPortefolio.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                //Está autenticado
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
         [HttpPost]
@@ -101,10 +110,17 @@ namespace WebAppPortefolio.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult NewUser(string returnUrl = null)
+        public IActionResult NewUser()
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                //Está autenticado
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -116,7 +132,6 @@ namespace WebAppPortefolio.Controllers
 
             if (ModelState.IsValid)
             {
-
                 //Novo id
                 _model.ID = (_context.Utilizadores.Count() + 1).ToString() + "#User";
 
@@ -142,14 +157,48 @@ namespace WebAppPortefolio.Controllers
         [AllowAnonymous]
         public IActionResult ForgotCredentials()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                //Está autenticado
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult Profile()
         {
-            return View();
+            DbContextOptions<PortefolioContext> _options = new DbContextOptions<PortefolioContext>();
+            var _context = new PortefolioContext(_options);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                //Buscar user para mostrar
+                Utilizador Xuser = _context.Utilizadores.Where(u => u.Email == HttpContext.User.Identity.Name).FirstOrDefault();
+
+                //Por pass a branco
+                Xuser.PasswordH = "";
+
+                //Mostrar User
+                return View(Xuser);
+
+            }
+            else
+            {                
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Profile(Utilizador _model)
+        {
+            DbContextOptions<PortefolioContext> _options = new DbContextOptions<PortefolioContext>();
+            var _context = new PortefolioContext(_options);
+
+            return View(_model);
         }
 
         #region Helpers
