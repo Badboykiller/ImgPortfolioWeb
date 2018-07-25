@@ -25,12 +25,16 @@ namespace WebAppPortefolio.ViewComponents
             DbContextOptions<PortefolioContext> _options = new DbContextOptions<PortefolioContext>();
             var db = new PortefolioContext(_options);
 
-            //string Uid = _accessor.HttpContext.Session.GetString("UserID");
+            //Inicializar ome do utilizador
+            ViewBag.NomeDele = "Sem Utilizador";
 
-            //Utilizador _u = db.Utilizadores.Where(ut => ut.ID.ToString() == Uid).FirstOrDefault();
+            if (User.Identity.IsAuthenticated)
+            {
+                Utilizador _u = db.Utilizadores.Where(ut => ut.Email == HttpContext.User.Identity.Name).FirstOrDefault();
 
-            //Nome do utilizador
-            ViewBag.NomeDele = "André Silva";
+                if(_u != null)
+                    ViewBag.NomeDele = _u.Nome;
+            }            
 
             return View();
         }               

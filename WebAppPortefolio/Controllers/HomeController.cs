@@ -22,6 +22,7 @@ namespace WebAppPortefolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                //Está autenticado
                 return View();
             }
             else
