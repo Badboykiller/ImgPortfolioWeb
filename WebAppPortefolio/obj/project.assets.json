@@ -2782,6 +2782,24 @@
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "NToastNotify/5.0.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "2.1.0",
+          "Microsoft.AspNetCore.Mvc.ViewFeatures": "2.1.0",
+          "Microsoft.AspNetCore.StaticFiles": "2.1.0",
+          "Microsoft.Extensions.FileProviders.Embedded": "2.1.0",
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/NToastNotify.Views.dll": {},
+          "lib/netstandard2.0/NToastNotify.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NToastNotify.Views.dll": {},
+          "lib/netstandard2.0/NToastNotify.dll": {}
+        }
+      },
       "NuGet.Frameworks/4.7.0": {
         "type": "package",
         "dependencies": {
@@ -7557,6 +7575,17 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
+    "NToastNotify/5.0.8": {
+      "sha512": "NQfJjcj0h99kQUhhCcHlhNI0Wbn8+pHXdXBpmYOVnGRnFMmCxaMq0KBSRl3Rv8jLS3cZ6LAIAswdxFQxGVmtOw==",
+      "type": "package",
+      "path": "ntoastnotify/5.0.8",
+      "files": [
+        "lib/netstandard2.0/NToastNotify.Views.dll",
+        "lib/netstandard2.0/NToastNotify.dll",
+        "ntoastnotify.5.0.8.nupkg.sha512",
+        "ntoastnotify.nuspec"
+      ]
+    },
     "NuGet.Frameworks/4.7.0": {
       "sha512": "/VaEPsEgj3p5YPLLxbYc6rB8gYIPf+8wCWOAlAe3l/SP0DXcefZ58uJer1ToBKIpwbPN5LkgTXtvilze5UJoYQ==",
       "type": "package",
@@ -12288,6 +12317,7 @@
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.1",
+      "NToastNotify >= 5.0.8",
       "Pomelo.EntityFrameworkCore.MySql >= 2.1.1"
     ]
   },
@@ -12347,6 +12377,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.1, )"
+          },
+          "NToastNotify": {
+            "target": "Package",
+            "version": "[5.0.8, )"
           },
           "Pomelo.EntityFrameworkCore.MySql": {
             "target": "Package",

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using NToastNotify;
 
 namespace WebAppPortefolio.Controllers
 {
@@ -13,10 +14,13 @@ namespace WebAppPortefolio.Controllers
     {
         private IHttpContextAccessor _accessor;
 
+        private readonly IToastNotification _toastNotification;
+
         //Construtor
-        public HomeController(IHttpContextAccessor accessor)
+        public HomeController(IHttpContextAccessor accessor, IToastNotification toastNotification)
         {
             _accessor = accessor;
+            _toastNotification = toastNotification;
         }
 
         //Página inicial
@@ -24,6 +28,9 @@ namespace WebAppPortefolio.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                //Info
+                _toastNotification.AddInfoToastMessage("Bem vindo!");
+
                 //Está autenticado
                 return View();
             }

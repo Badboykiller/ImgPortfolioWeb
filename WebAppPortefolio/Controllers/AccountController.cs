@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using NToastNotify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,13 @@ namespace WebAppPortefolio.Controllers
     {
         private IHttpContextAccessor _accessor;
 
+        private readonly IToastNotification _toastNotification;
+
         //Construtor
-        public AccountController(IHttpContextAccessor accessor)
+        public AccountController(IHttpContextAccessor accessor, IToastNotification toastNotification)
         {
             _accessor = accessor;
+            _toastNotification = toastNotification;
         }
 
         //Login
@@ -227,6 +231,9 @@ namespace WebAppPortefolio.Controllers
                 //Guardar edição
                 _context.Utilizadores.Update(Xuser);
                 _context.SaveChanges();
+
+                //Notificar
+                _toastNotification.AddSuccessToastMessage("Utilizador editado com sucesso!");
 
                 return View(_model);
 

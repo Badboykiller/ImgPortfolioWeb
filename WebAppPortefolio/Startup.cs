@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using WebAppPortefolio.Models;
 using WebAppPortefolio.Utils;
+using NToastNotify;
 
 namespace WebAppPortefolio
 {
@@ -66,6 +67,12 @@ namespace WebAppPortefolio
                 options.Conventions.AuthorizeFolder("/");
                 options.Conventions.AllowAnonymousToPage("/Login");
             });
+
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                ProgressBar = true,
+                PositionClass = ToastPositions.BottomRight
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +96,9 @@ namespace WebAppPortefolio
             app.UseAuthentication();
 
             app.UseStaticFiles();
+
+            //Para as notificações
+            app.UseNToastNotify();
 
             app.UseMvc(routes =>
             {
