@@ -13,11 +13,13 @@ namespace WebAppPortefolio.Controllers
     {
         private IHttpContextAccessor _accessor;
 
+        //Construtor
         public HomeController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
         }
 
+        //Página inicial
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)

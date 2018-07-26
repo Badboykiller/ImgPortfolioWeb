@@ -23,11 +23,13 @@ namespace WebAppPortefolio.Controllers
     {
         private IHttpContextAccessor _accessor;
 
+        //Construtor
         public AccountController(IHttpContextAccessor accessor)
         {
             _accessor = accessor;
         }
 
+        //Login
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -44,6 +46,7 @@ namespace WebAppPortefolio.Controllers
             
         }
 
+        //Login
         [HttpPost]
         [AllowAnonymous]
         public IActionResult Login(IFormCollection col)
@@ -94,6 +97,7 @@ namespace WebAppPortefolio.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //Logout
         [HttpGet]
         public IActionResult Logout()
         {
@@ -109,6 +113,7 @@ namespace WebAppPortefolio.Controllers
 
         }
 
+        //Registar novo Utilizador
         [AllowAnonymous]
         public IActionResult NewUser()
         {
@@ -123,6 +128,7 @@ namespace WebAppPortefolio.Controllers
             }
         }
 
+        //Registar novo Utilizador
         [HttpPost]
         [AllowAnonymous]
         public IActionResult NewUser(Utilizador _model)
@@ -154,6 +160,7 @@ namespace WebAppPortefolio.Controllers
             }
         }
 
+        //Recuperar password
         [AllowAnonymous]
         public IActionResult ForgotCredentials()
         {
@@ -168,6 +175,7 @@ namespace WebAppPortefolio.Controllers
             }
         }
 
+        //Editar utilizador autenticado
         [HttpGet]
         public IActionResult Profile()
         {
@@ -179,9 +187,6 @@ namespace WebAppPortefolio.Controllers
                 //Buscar user para mostrar
                 Utilizador Xuser = _context.Utilizadores.Where(u => u.Email == HttpContext.User.Identity.Name).FirstOrDefault();
 
-                //Por pass a branco
-                Xuser.PasswordH = "";
-
                 //Mostrar User
                 return View(Xuser);
 
@@ -192,15 +197,49 @@ namespace WebAppPortefolio.Controllers
             }
         }
 
+        //Editar utilizador autenticado
         [HttpPost]
-        public IActionResult Profile(Utilizador _model)
+        public IActionResult Profile(Utilizador _model, IFormCollection col)
         {
-            DbContextOptions<PortefolioContext> _options = new DbContextOptions<PortefolioContext>();
-            var _context = new PortefolioContext(_options);
 
-            return View(_model);
+            if (User.Identity.IsAuthenticated)
+            {
+                DbContextOptions<PortefolioContext> _options = new DbContextOptions<PortefolioContext>();
+                var _context = new PortefolioContext(_options);
+
+                //Buscar user
+                Utilizador Xuser = _context.Utilizadores.Where(u => u.Email == HttpContext.User.Identity.Name).FirstOrDefault();
+
+                //Alterar dados
+                Xuser.Nome = _model.Nome;
+                Xuser.Username = _model.Username;
+                Xuser.Email = _model.Email;
+
+                //Buscar Chave
+                string PalavraChave = col["Passwordd"];
+
+                //Se for para mudar a pass
+                if (!String.IsNullOrEmpty(PalavraChave))
+                {
+                    Xuser.PasswordH = Funcionalidades.GetUInt64Hash(MD5.Create(), PalavraChave);
+                }
+
+                //Guardar edição
+                _context.Utilizadores.Update(Xuser);
+                _context.SaveChanges();
+
+                return View(_model);
+
+            }
+            else
+            {
+                //Não altera 
+                return View(_model);
+            }         
+            
         }
 
+        //Helpers
         #region Helpers
         private void AddErrors(IdentityResult result)
         {

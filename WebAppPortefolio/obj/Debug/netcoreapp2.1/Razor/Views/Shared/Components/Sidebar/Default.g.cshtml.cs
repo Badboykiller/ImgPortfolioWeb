@@ -44,7 +44,7 @@ namespace AspNetCore
             WriteLiteral("\r\n<div class=\"main-container\">\r\n    <div class=\"sidebar\">\r\n        <nav class=\"sidebar-nav\">\r\n            <ul class=\"nav\">\r\n                <li class=\"nav-title\">Navigation</li>\r\n                <li class=\"nav-item\">\r\n                    ");
             EndContext();
             BeginContext(238, 139, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "48e083640d1d4ea6811d5fe367dccdcd", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "951d707e324e443388fc8b48e09d9888", async() => {
                 BeginContext(278, 95, true);
                 WriteLiteral("\r\n                        <i class=\"icon icon-speedometer\"></i> Dashboard\r\n                    ");
                 EndContext();

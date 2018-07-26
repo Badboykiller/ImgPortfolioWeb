@@ -16,6 +16,7 @@
                     <div>Profile Information</div>
                     <div class="text-muted small">These information are visible to the public.</div>
                 </div>
+                
                 <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-6">
@@ -24,13 +25,8 @@
                                 <input class="form-control" name="Nome" id="Nome" value="@Model.Nome">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="form-control-label">Username</label>
-                                <input class="form-control" name="Username" id="Username" value="@Model.Username">
-                            </div>
-                        </div>
-                    </div>                    
+                        
+                    </div>
 
                 </div>
             </div>
@@ -43,7 +39,14 @@
                 <div class="col-md-8">
                     <div class="row">
 
-                        <div class="col-md-8">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Username</label>
+                                <input class="form-control" name="Username" id="Username" value="@Model.Username">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">Email Address</label>
                                 <input class="form-control" name="Email" id="Email" value="@Model.Email">
@@ -54,7 +57,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">Password</label>
-                                <input type="password" class="form-control" name="PasswordH" id="PasswordH">
+                                <input type="password" class="form-control" name="Passwordd" id="Passwordd">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -68,7 +71,7 @@
             </div>
         </div>
         <div class="card-footer bg-light text-right">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="button" class="btn btn-primary" onclick="VerificarPP()" >Save Changes</button>
         </div>
     </form>
 </div>
@@ -87,46 +90,31 @@
             }
         }
 
-        //Validar Segurança minima na pass
-        function ValidatePassw(inputPass)
-        {
-            if (inputPass.value.length > 7) {
+        //Verifica se as passs são iguais
+        function checkPasss() {
+
+            //Store the password field objects into variables ...
+            var pass1 = document.getElementById('Passwordd');
+            var pass2 = document.getElementById('passw2');
+
+
+            if (pass1.value.length < 1)
                 return true;
+
+            if (pass1.value == pass2.value) {
+                if (pass1.value.length > 7)
+                {
+                    alert("Your Password Must Be at Least 8 Characters ");
+                    return true;
+                }                    
+                else
+                    return false;
             }
-            else
-            {
-                alert("Password need at least 8 characters");
+            else { 
+                alert("Passwords doesn´t match");
                 return false;
             }
-        }
 
-        //Verifica se as passs são iguais
-        function checkPass() {
-            //Store the password field objects into variables ...
-            var pass1 = document.getElementById('PasswordH');
-            var pass2 = document.getElementById('passw2');
-            //Store the Confimation Message Object ...
-            var message = document.getElementById('confirmMessage');
-            //Set the colors we will be using ...
-            var goodColor = "#66cc66";
-            var badColor = "#ff6666";
-            var nColor = "#555";
-            //Compare the values in the password field
-            //and the confirmation field
-            if (pass1.value == pass2.value) {
-                //The passwords match.
-                //Set the color to the good color and inform
-                //the user that they have entered the correct password
-                pass2.style.backgroundColor = goodColor;
-            } else if (pass2.value.length > 0) {
-                //The passwords do not match.
-                //Set the color to the bad color and
-                //notify the user.
-                pass2.style.backgroundColor = badColor;
-            }
-            else {
-                pass2.style.backgroundColor = nColor;
-            }
         }
 
         //Só deixa submeter o form se as passs forem iguais
@@ -134,12 +122,13 @@
             var _nome = document.getElementById('Nome');
             var _usern = document.getElementById('Username');
             var _email = document.getElementById('Email');
-            var pass1 = document.getElementById('PasswordH');
+            var pass1 = document.getElementById('Passwordd');
             var pass2 = document.getElementById('passw2');
 
-            if (ValidateEmail(_email) && pass1.value == pass2.value && pass1.value.length > 0 && ValidatePassw(pass1)
-                && _nome.value.length > 0 && _usern.value.length > 0 && _email.value.length > 0) {
-                document.getElementById("formNewUser").submit();
+            if (ValidateEmail(_email) && _nome.value.length > 0 && _usern.value.length > 0 && _email.value.length > 0 && checkPasss())
+            {
+                document.getElementById("formChangeProfile").submit();
             }
+
         }
 </script>
