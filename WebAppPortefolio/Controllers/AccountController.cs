@@ -10,6 +10,7 @@ using NToastNotify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -177,6 +178,20 @@ namespace WebAppPortefolio.Controllers
             {
                 return View();
             }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult ForgotCredentials(IFormCollection col)
+        {
+            //Buscar email
+            string correiro = col["emaill"];
+
+            //Mandar mail
+            Funcionalidades.MandarMail(correiro);
+
+            //Ir para o Login
+            return RedirectToActionPermanent("Login", "Account");
         }
 
         //Editar utilizador autenticado

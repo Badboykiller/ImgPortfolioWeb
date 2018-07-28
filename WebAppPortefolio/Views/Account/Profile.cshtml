@@ -102,13 +102,14 @@
                 return true;
 
             if (pass1.value == pass2.value) {
-                if (pass1.value.length > 7)
-                {
-                    alert("Your Password Must Be at Least 8 Characters ");
+                if (pass1.value.length > 7) {
                     return true;
-                }                    
-                else
+                }
+                else { 
+                    alert("Your Password Must Be at Least 8 Characters ");
                     return false;
+                }
+                    
             }
             else { 
                 alert("Passwords doesn´t match");
